@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Builder</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="categories">
+                <button data-category="skin">Skin</button>
+                <button data-category="face">Face</button>
+                <button data-category="hair">Hair</button>
+                <button data-category="shirt">Shirt</button>
+                <button data-category="pants">Pants</button>
+                <button data-category="shoes">Shoes</button>
+            </div>
+            <div class="selectors">
+                <div id="skin-select" class="image-selector"></div>
+
+                <div id="face-select" class="image-selector"></div>
+        
+                <div id="hair-select" class="image-selector"></div>
+        
+                <div id="shirt-select" class="image-selector"></div>
+        
+                <div id="pants-select" class="image-selector"></div>
+        
+                <div id="shoes-select" class="image-selector"></div>
+            </div>
+        </div>
+        
+        <div class="character">
+            <!-- Các thành phần cơ thể có màu sắc của da -->
+            <img src="./assets/Skin/Tint 1/tint1_arm.png" alt="" class="skin arm-left">
+            <img src="./assets/Skin/Tint 1/tint1_arm.png" alt="" class="skin arm-right">
+            <img src="./assets/Skin/Tint 1/tint1_hand.png" alt="" class="skin hand-right">
+            <img src="./assets/Skin/Tint 1/tint1_head.png" alt="" class="skin head" id="skin-head">
+            <img src="./assets/Skin/Tint 1/tint1_leg.png" alt="" class="skin leg-left">
+            <img src="./assets/Skin/Tint 1/tint1_leg.png" alt="" class="skin leg-right">
+            <img src="./assets/Skin/Tint 1/tint1_neck.png" alt="" class="skin neck">
+            <!-- Gồm tai mũi miệng -->
+            <img src="./assets/Face/Completes/face1.png" alt="" class="face" id="face">
+            <img src="./assets/Hair/Black/blackMan1.png" alt="" class="hair" id="hair">
+            <!-- Miệng -->
+            <img src="./assets/Face/Mouth/mouth_glad.png" class="mouth">
+            <!-- Phần body: bao gồm tay áo, thân áo,  -->
+            <img src="./assets/Shirts/Blue/blueArm_long.png" alt="" class="shirt arm-left">
+            <img src="./assets/Shirts/Blue/blueArm_long.png" alt="" class="shirt arm-right">
+            <img src="./assets/Shirts/Blue/blueShirt5.png" alt="" class="shirt body" id="shirt-body">
+            <!-- Quần  -->
+            <img src="assets/Pants/Blue1/pantsBlue1_long.png" alt="" class="pants leg-left" id="pants-left">
+            <img src="assets/Pants/Blue1/pantsBlue1_long.png" alt="" class="pants leg-right" id="pants-right">
+            <!-- Giày -->
+            <img src="assets/Shoes/Black/blackShoe1.png" alt="" class="shoe-left" id="shoe-left">
+            <img src="assets/Shoes/Black/blackShoe1.png" alt="" class="shoe-right" id="shoe-right">
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
