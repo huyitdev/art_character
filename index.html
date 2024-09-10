@@ -1,400 +1,492 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Prizzle Store</title>
-        <style>
-            /* General Styles */
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            body {
-                font-family: 'Arial', sans-serif;
-                color: #333;
-                background-color: #f4f4f4;
-            }
-        
-            /* Header Styles */
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prizzle Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: white;
+        }
+
+        /* First Layer: Icon Buttons */
+        .icon-links {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-items: center;
+            flex-wrap: nowrap;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #3F3939;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        /* Header Left */
+        .header-left .btn {
+            background: none;
+            border: none;
+        }
+
+        .header-left .btn img {
+            width: 28.4px;
+            height: max-content;
+
+        }
+
+        .header-left .btn img:hover {
+            background: #ff4081;
+            opacity: 0.5;
+            border-radius: 2rem;
+        }
+
+        /* Header Right */
+        .header-right {
+            display: flex;
+            flex-direction: row;
+            gap: 15rem !important;
+        }
+
+        .header-right a {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 0.5rem;
+            background: none;
+            border: none;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .header-right a img {
+            width: 28.4px;
+            height: max-content;
+        }
+
+        .header-right a:hover {
+            color: #ff4081;
+        }
+
+        /* Header Actions */
+        .header-actions {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        /* Second Layer: Logo, Title, and Search */
+        .header-content {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 1px 1px rgb(100 99 99 / 20%);
+        }
+
+        .header-content .left-section-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-content .left-section img {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .header-content h1 {
+            font-size: 60px;
+            font-weight: bold;
+            margin: 0;
+            color: black;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 10px;
+            width: 300px;
+            gap: 0.2rem;
+        }
+
+        .search-container button {
+            display: flex;
+            justify-items: center;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0 10px;
+        }
+
+        .search-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .search-input {
+            border: none !important;
+            flex: 1;
+        }
+
+        .search-input:focus-visible {
+            outline: none !important;
+            flex: 1;
+        }
+
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 180px;
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .sidebar ul li input {
+            margin-right: 10px;
+        }
+
+        /* Slideshow (Ad Banner) */
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            /* margin: 0 auto; */
+            margin-left: 20px;
+            margin-right: 20px;
+            overflow: hidden;
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.4);
+            /* Mờ viền cho blog */
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide1 {
+            background-color: #ff4081;
+            background-image: url(./assets/slides/images.jpg);
+        }
+
+        .slide2 {
+            background-color: #03a9f4;
+            background-image: url(./assets/slides/images2.jpg);
+        }
+
+        .slide3 {
+            background-color: #4caf50;
+            background-image: url(./assets/slides/image3.jpg);
+        }
+
+        /* Next/prev buttons */
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: background-color 0.3s;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
             header {
-                background-color: #857c7c;
-                color: white;
-                padding: 10px 20px;
-                display: flex;
                 flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header .nav-links {
                 justify-content: center;
-                align-items: center;
-                position: sticky;
-                top: 0;
-                z-index: 100;
-            }
-        
-            /* First Layer: Icon Buttons */
-            .icon-links {
-                display: flex;
-                justify-content: space-between;
-                width: 100%;
-                /* padding-bottom: 10px; */
-            }
-            .icon-links a {
-                color: white;
-                text-decoration: none;
-                font-size: 16px;
-                display: flex;
-                align-items: center;
-                padding: 5px 10px;
-                transition: color 0.3s;
-            }
-            .icon-links a:hover {
-                color: #ff4081; /* Hover effect */
-            }
-            .icon-links a svg {
-                margin-right: 5px;
-            }
-        
-            /* Second Layer: Logo, Title, and Search */
-            .header-content {
-                background-color: white;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-            }
-            .header-content .left-section-title {
-                display: flex;
-                align-items: center;
-            }
-            .header-content .left-section img {
-                height: 50px;
-                margin-right: 10px;
-            }
-            .header-content h1 {
-                font-size: 50px;
-                font-weight: bold;
-                margin: 0;
-                color: black;
-            }
-            .logos {
-                margin-left: 10px;
-            }
-            .search-container {
-                margin-right: 50px;
-                position: relative;
-                display: flex;
-                align-items: center;
-            }
-            .search-container input[type="text"] {
-                padding: 11px 15px;
-                font-size: 16px;
-                border: 2px solid #ccc;
-                border-radius: 20px;
-                outline: none;
-                width: 250px;
-                transition: border-color 0.3s;
-            }
-            .search-container input[type="text"]:focus {
-                border-color: #ff4081;
-            }
-            .search-container button {
-                position: absolute;
-                right: 10px;
-                background: none;
-                border: none;
-                color: #888;
-                cursor: pointer;
-                font-size: 16px;
-            }
-            .nav-links a svg {
-                margin-right: 5px;
-            }
-
-            /* Sidebar Styles */
-            .sidebar {
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 180px;
-                background-color: #fff;
-                border-right: 1px solid #ddd;
-                height: 100%;
-                padding: 20px;
-            }
-            .sidebar ul {
-                list-style: none;
-                padding: 0;
-            }
-            .sidebar ul li {
-                margin-bottom: 15px;
-                font-size: 16px;
-            }
-            .sidebar ul li input {
-                margin-right: 10px;
-            }
-
-            /* Slideshow (Ad Banner) */
-            .slideshow-container {
-                position: relative;
-                max-width: 100%;
-                /* margin: 0 auto; */
-                margin-left: 20px;
-                margin-right: 20px;
-                overflow: hidden;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Mờ viền cho blog */
-            }
-            .slides {
-                display: flex;
-                transition: transform 0.5s ease-in-out;
-            }
-            .slide {
-                min-width: 100%;
-                height: 500px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 30px;
-                color: white;
-                background-size: cover;
-                background-position: center;
-            }
-            .slide1 { background-color: #ff4081; background-image: url(./assets/slides/images.jpg); }
-            .slide2 { background-color: #03a9f4; background-image: url(./assets/slides/images2.jpg);}
-            .slide3 { background-color: #4caf50; background-image: url(./assets/slides/image3.jpg);}
-
-            /* Next/prev buttons */
-            .prev, .next {
-                position: absolute;
-                top: 50%;
-                width: 30px;
-                height: 30px;
-                background-color: rgba(0, 0, 0, 0.5);
-                color: white;
-                border: none;
-                font-size: 18px;
-                cursor: pointer;
-                transform: translateY(-50%);
-                transition: background-color 0.3s;
-            }
-            .prev:hover, .next:hover {
-                background-color: rgba(0, 0, 0, 0.8);
-            }
-            .prev { left: 10px; }
-            .next { right: 10px; }
-
-            /* Responsive Adjustments */
-            @media (max-width: 768px) {
-                header {
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-                header .nav-links {
-                    justify-content: center;
-                    margin-top: 10px;
-                }
-                .search-container {
-                    margin-top: 10px;
-                }
-            }
-            /* Container for both sections */
-            .body-container {
-                display: flex;
-                justify-content: space-between; /* Distribute space between left and right sections */
-                width: 100%;
-                margin: 0 auto;
-                padding: 20px;
-            }
-
-            /* Left section for blog news */
-            .left-section {
-                margin-left: 20px;
-                flex: 3; /* 4/10 of the width */
-                padding: 20px;
-                background-color: #f4f4f4;
-                border-right: 1px solid #ccc;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Mờ viền cho blog */
-            }
-
-            /* Right section for products */
-            .right-section {
-                margin-right: 20px;
-                flex: 7; /* 6/10 of the width */
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Mờ viền cho blog */
-            }
-
-            /* Style for product items */
-            .product-list {
-                display: flex;
-                gap: 20px; /* Space between products */
-            }
-
-            .product-item {
-                text-align: center;
-            }
-
-            .product-item img {
-                width: 100px;
-                height: auto;
-            }
-            
-            /* Product Grid */
-            .product-grid {
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
-                padding: 20px;
-                margin-left: 180px; /* Adjust for the sidebar */
-            }
-            .product-item {
-                text-align: center;
-                background-color: white;
-                border-radius: 10px;
-                padding: 20px;
-                margin: 10px;
-                width: 200px;
-                transition: transform 0.3s ease;
-            }
-            .product-item img {
-                width: 150px;
-                height: auto;
-            }
-            .product-item:hover {
-                transform: translateY(-10px);
-                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
-            }
-            .product-item div {
                 margin-top: 10px;
             }
-        </style>
-    </head>
-    <body>
 
-        <header>
-            <!-- First Layer: Icon Links -->
-            <div class="icon-links">
-                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-house"
-                        viewBox="0 0 16 16"><path fill-rule="evenodd"
-                            d="M8 3.293l6 6V13h-2v-3H4v3H2V9.293l6-6zm5 6.707V13a1 1 0 0 1-1 1h-1v-3a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v3H4a1 1 0 0 1-1-1V9.293l-2 2V13a2 2 0 0 0 2 2h2v-3h4v3h2a2 2 0 0 0 2-2v-1.707l-1 1z" /><path
-                            fill-rule="evenodd"
-                            d="M7.5 14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z" /></svg>
-                    Home</a>
-                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-pencil"
-                        viewBox="0 0 16 16"><path fill-rule="evenodd"
-                            d="M12.146 1.854a.5.5 0 0 1 .708 0l1.293 1.293a.5.5 0 0 1 0 .708l-8.293 8.293a.5.5 0 0 1-.223.13l-3 1a.5.5 0 0 1-.643-.643l1-3a.5.5 0 0 1 .13-.223l8.293-8.293zm-6.793 8.707l-1 1 1 1 1-1-1-1zm.5-.5l1-1 1 1-1 1-1-1zm1.5-1.5l1-1 1 1-1 1-1-1zm1.5-1.5l1-1 1 1-1 1-1-1z" /></svg>
-                    Creator</a>
-                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-person"
-                        viewBox="0 0 16 16"><path
-                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" /><path
-                            fill-rule="evenodd"
-                            d="M8 9a5 5 0 0 0-4.546 2.914A1 1 0 0 0 4.18 13h7.64a1 1 0 0 0 .926-1.086A5 5 0 0 0 8 9z" /></svg>
-                    Log In</a>
-                <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-cart"
-                        viewBox="0 0 16 16"><path
-                            d="M0 1a1 1 0 0 1 1-1h1.11a.5.5 0 0 1 .492.41L2.89 2H14.5a.5.5 0 0 1 .49.598l-1.5 7A.5.5 0 0 1 13 10H4a.5.5 0 0 1-.49-.598L4.89 3H2l-.89 4H2a.5.5 0 0 1 0 1H1.11a.5.5 0 0 1-.492-.41L0 1zm11.5 11a1.5 1.5 0 1 1-3 0h3zm-7 0a1.5 1.5 0 1 1 3 0h-3z" /></svg>
-                    Cart</a>
+            .search-container {
+                margin-top: 10px;
+            }
+        }
+
+        /* Container for both sections */
+        .body-container {
+            display: flex;
+            justify-content: space-between;
+            /* Distribute space between left and right sections */
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Left section for blog news */
+        .left-section {
+            flex: 3;
+            padding: 20px;
+            background-color: rgba(210, 210, 210, 0.7);
+            box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .blog {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Right section for products */
+        .right-section {
+            flex: 7;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style for product items */
+        .product-list {
+            display: flex;
+            gap: 20px;
+        }
+
+        .product-item {
+            text-align: center;
+        }
+
+        .product-item img {
+            width: 100px;
+            height: auto;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            padding: 2.1rem;
+            flex-direction: row;
+            gap: 20px;
+            align-items: flex-start;
+            align-content: flex-start;
+        }
+
+        .product-item {
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            width: 200px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item img {
+            width: 150px;
+            height: auto;
+        }
+
+        .product-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-item div {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- First Layer: Icon Links -->
+        <div class="icon-links">
+            <div class="header-left">
+                <button class="btn"><img src="assets/images-other/home.png" alt=""></button>
+            </div>
+            <div class="header-right">
+                <a href="#">
+                    <img src="assets/images-other/paint.png" alt="Paint Brush">
+                    Creator
+                </a>
+                <div class="header-actions">
+                    <a href=" #">
+                        <img src="assets/images-other/user.png" alt="User">
+                        Log In</a>
+                    <a href=" #"> <img src="assets/images-other/shopping-cart.png" alt="Shopping Cart">
+                        Cart</a>
+                </div>
             </div>
 
-        </header>
+        </div>
 
-        <!-- Second Layer: Logo, Title, Search Bar -->
-        <div class="header-content">
+    </header>
+
+    <!-- Second Layer: Logo, Title, Search Bar -->
+    <div class="header-content">
+        <div class="left-section-title">
             <img class="logos" src="logo.png" alt="Logo">
-            <div class="left-section-title">
-                <h1>DISCOVER YOUR OWN STYLE</h1>
-            </div>
-            <div class="search-container">
-                <input type="text" placeholder="Find">
-                <button>&#x1F50D;</button>
+            <h1>DISCOVER YOUR OWN STYLE</h1>
+        </div>
+        <div class="search-container">
+            <button class="search-button">
+                <img src="assets/images-other/search.png" alt="Search">
+            </button>
+            <input type="text" class="search-input" placeholder="Find">
+        </div>
+    </div>
+
+    <div class="slideshow-container">
+        <div class="slides">
+            <div class="slide slide1"></div>
+            <div class="slide slide2"></div>
+            <div class="slide slide3"></div>
+        </div>
+        <button class="prev" onclick="prevSlide()">❮</button>
+        <button class="next" onclick="nextSlide()">❯</button>
+    </div>
+    <div class="body-container">
+        <!-- Left Section - Blog News -->
+        <div class="left-section">
+            <!-- Add your blog news content here -->
+            <div class="blog">
+                <div>Blog Post 1</div>
+                <div>Blog Post 2</div>
+                <div>Blog Post 3</div>
             </div>
         </div>
 
-        <div class="slideshow-container">
-            <div class="slides">
-                <div class="slide slide1"></div>
-                <div class="slide slide2"></div>
-                <div class="slide slide3"></div>
-            </div>
-            <button class="prev" onclick="prevSlide()">❮</button>
-            <button class="next" onclick="nextSlide()">❯</button>
-        </div>
-        <div class="body-container">
-            <!-- Left Section - Blog News -->
-            <div class="left-section">
-                <!-- Add your blog news content here -->
-                <ul>
-                    <li>Blog post 1</li>
-                    <li>Blog post 2</li>
-                    <li>Blog post 3</li>
-                </ul>
-            </div>
-        
-            <!-- Right Section - Product -->
-            <div class="right-section">
-                <div class="product-grid">
-                    <div class="product-item">
-                        <img src="./assets/images/product.jpg" alt="Product 1">
-                        <div>New Arrival</div>
-                        <div>PATTAS TOMO - HIGH TOP</div>
-                        <div>Blarney</div>
-                        <div>750,000 VND</div>
-                    </div>
-                    <div class="product-item">
-                        <img src="./assets/images/product.jpg" alt="Product 1">
-                        <div>New Arrival</div>
-                        <div>PATTAS TOMO - HIGH TOP</div>
-                        <div>Blarney</div>
-                        <div>750,000 VND</div>
-                    </div>
-                    <div class="product-item">
-                        <img src="./assets/images/product.jpg" alt="Product 1">
-                        <div>New Arrival</div>
-                        <div>PATTAS TOMO - HIGH TOP</div>
-                        <div>Blarney</div>
-                        <div>750,000 VND</div>
-                    </div>
-                    <div class="product-item">
-                        <img src="./assets/images/product.jpg" alt="Product 2">
-                        <div>New Arrival</div>
-                        <div>PATTAS TOMO - LOW TOP</div>
-                        <div>Blarney</div>
-                        <div>750,000 VND</div>
-                    </div>
-                    <div class="product-item">
-                        <img src="./assets/images/product.jpg" alt="Product 3">
-                        <div>New Arrival</div>
-                        <div>PATTAS TOMO - LOW TOP</div>
-                        <div>Blarney</div>
-                        <div>750,,000 VND</div>
-                    </div>
-            </div>
-        </div>
-        
-            <script>
-                    let slideIndex = 0;
-                    const slides = document.querySelector('.slides');
-                    const totalSlides = slides.children.length;
-            
-                    function showSlide(index) {
-                        const newPosition = -index * 100;
-                        slides.style.transform = `translateX(${newPosition}%)`;
-                    }
-            
-                    function nextSlide() {
-                        slideIndex = (slideIndex + 1) % totalSlides;
-                        showSlide(slideIndex);
-                    }
-            
-                    function prevSlide() {
-                        slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
-                        showSlide(slideIndex);
-                    }
-            
-                    setInterval(nextSlide, 3000); // Auto-slide every 3 seconds
-                </script>
+        <!-- Right Section - Product -->
+        <div class="right-section">
+            <div class="product-grid">
+                <div class="product-item">
+                    <img src="./assets/images/product.jpg" alt="Product 1">
+                    <div>New Arrival</div>
+                    <div>PATTAS TOMO - HIGH TOP</div>
+                    <div>Blarney</div>
+                    <div>750,000 VND</div>
+                </div>
+                <div class="product-item">
+                    <img src="./assets/images/product.jpg" alt="Product 1">
+                    <div>New Arrival</div>
+                    <div>PATTAS TOMO - HIGH TOP</div>
+                    <div>Blarney</div>
+                    <div>750,000 VND</div>
+                </div>
+                <div class="product-item">
+                    <img src="./assets/images/product.jpg" alt="Product 1">
+                    <div>New Arrival</div>
+                    <div>PATTAS TOMO - HIGH TOP</div>
+                    <div>Blarney</div>
+                    <div>750,000 VND</div>
+                </div>
+                <div class="product-item">
+                    <img src="./assets/images/product.jpg" alt="Product 2">
+                    <div>New Arrival</div>
+                    <div>PATTAS TOMO - LOW TOP</div>
+                    <div>Blarney</div>
+                    <div>750,000 VND</div>
+                </div>
+                <div class="product-item">
+                    <img src="./assets/images/product.jpg" alt="Product 3">
+                    <div>New Arrival</div>
+                    <div>PATTAS TOMO - LOW TOP</div>
+                    <div>Blarney</div>
+                    <div>750,,000 VND</div>
+                </div>
 
-        </body>
-    </html>
+            </div>
+        </div>
+
+        <script>
+            let slideIndex = 0;
+            const slides = document.querySelector('.slides');
+            const totalSlides = slides.children.length;
+
+            function showSlide(index) {
+                const newPosition = -index * 100;
+                slides.style.transform = `translateX(${newPosition}%)`;
+            }
+
+            function nextSlide() {
+                slideIndex = (slideIndex + 1) % totalSlides;
+                showSlide(slideIndex);
+            }
+
+            function prevSlide() {
+                slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+                showSlide(slideIndex);
+            }
+
+            setInterval(nextSlide, 3000); // Auto-slide every 3 seconds
+        </script>
+
+</body>
+
+</html>
