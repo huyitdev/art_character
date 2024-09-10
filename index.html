@@ -283,7 +283,8 @@
         /* Container for both sections */
         .body-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: row;
+            gap: 1rem;
             /* Distribute space between left and right sections */
             width: 100%;
             margin: 0 auto;
@@ -292,7 +293,7 @@
 
         /* Left section for blog news */
         .left-section {
-            flex: 3;
+            width: 30%;
             padding: 20px;
             background-color: rgba(210, 210, 210, 0.7);
             box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
@@ -305,7 +306,7 @@
 
         /* Right section for products */
         .right-section {
-            flex: 7;
+            width: 70%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
